@@ -75,7 +75,7 @@ class DiceGame(gym.Env):
                     self.turn+=1
                     self.blackDots=2
                     self.bust=False
-                    self.reward=self.round
+                    self.reward=(self.round-1)
                     self.round=0
                     
                     countDone=0
@@ -84,7 +84,7 @@ class DiceGame(gym.Env):
                             countDone+=1
                     if (countDone>=3):
                         self.done = True
-                        self.reward = 100/self.turn #Arb Reward for completing Game
+                        self.reward = 1000#/self.turn #Arb Reward for completing Game
                 
 
             return self.state, self.dice, self.blackDots, self.turn, self.reward, self.done
@@ -99,6 +99,7 @@ class DiceGame(gym.Env):
         self.state = np.zeros((7,3))
         self.top = [1000,6,6,6,6,6,6]
         self.dice = (np.random.randint(1, 7),np.random.randint(1, 7),np.random.randint(1, 7))
+        self.state[0] = self.dice
         self.blackDots = 2
         self.turn = 0
         self.round = 0
